@@ -19,13 +19,14 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: npm i -g pnpm
       - run: pnpm install --no-frozen-lockfile
-      - run: pnpm run build
+      - run: pnpm run generate-changelog
+      - run: pnpm exec vite build --base=/tweb/
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: public
+          path: dist
 
   deploy:
     needs: build
